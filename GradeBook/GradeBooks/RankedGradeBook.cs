@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using GradeBook.Enums;
 
@@ -16,17 +17,17 @@ namespace GradeBook.GradeBooks
         {
             if (Students.Count < 5)
                 throw new InvalidOperationException("Ranked-grading requires a minimum of 5 students to work");
-            var output = (averageGrade * Students.Count) / 100;
+            var threshold = (int)Math.Ceiling(Students.Count * 0.2);
+            var grades = Students.OrderByDescending(e => e.AverageGrade).Select(e => e.AverageGrade).ToList();
 
-            if (output >= 20.0)
+            if (averageGrade >= grades[threshold - 1])
                 return 'A';
-            if (output >= 40.0 && output < 20.0)
+            if (averageGrade >= grades[(threshold * 2) - 1])
                 return 'B';
-            if (output >= 60.0 && output < 40.0)
+            if (averageGrade >= grades[(threshold * 3) - 1])
                 return 'C';
-            if (output >= 80.0 && output < 60.0)
+            if (averageGrade >= grades[(threshold * 4) - 1])
                 return 'D';
-
             return 'F';
         }
     }
