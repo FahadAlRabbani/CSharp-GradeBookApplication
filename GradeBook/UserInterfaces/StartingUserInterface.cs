@@ -49,7 +49,7 @@ namespace GradeBook.UserInterfaces
                     gradeBook = new StandardGradeBook(name);
                     break;
                 case "ranked":
-                    gradeBook = new StandardGradeBook(name);
+                    gradeBook = new RankedGradeBook(name);
                     break;
                 default:
                     Console.WriteLine($"{typeOfGradeBook} is not a supported type of gradebook, please try again");
